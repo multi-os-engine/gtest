@@ -35,6 +35,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <errno.h>
 
 #if GTEST_OS_WINDOWS_MOBILE
 # include <windows.h>  // For TerminateProcess()
@@ -521,7 +522,8 @@ class CapturedStream {
     char* name_template = strdup(str_template.c_str());
     const int captured_fd = mkstemp(name_template);
     GTEST_CHECK_(captured_fd != -1) << "Unable to open temporary file "
-                                    << name_template;
+                                    << name_template
+                                    << "; errno " << errno;
     filename_ = name_template;
     free(name_template);
     name_template = NULL;
@@ -553,6 +555,9 @@ class CapturedStream {
     }
 
     FILE* const file = posix::FOpen(filename_.c_str(), "r");
+    GTEST_CHECK_(file != NULL) << "Unable to open temporary file "
+                               << filename_.c_str()
+                               << "; errno " << errno;
     const String content = ReadEntireFile(file);
     posix::FClose(file);
     return content;
