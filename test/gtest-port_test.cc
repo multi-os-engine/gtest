@@ -963,23 +963,23 @@ TEST(ThreadLocalTest, ValueDefaultContructorIsNotRequiredForParamVersion) {
 }
 
 TEST(ThreadLocalTest, GetAndPointerReturnSameValue) {
-  ThreadLocal<String> thread_local;
+  ThreadLocal<String> thread__local;
 
-  EXPECT_EQ(thread_local.pointer(), &(thread_local.get()));
+  EXPECT_EQ(thread__local.pointer(), &(thread__local.get()));
 
   // Verifies the condition still holds after calling set.
-  thread_local.set("foo");
-  EXPECT_EQ(thread_local.pointer(), &(thread_local.get()));
+  thread__local.set("foo");
+  EXPECT_EQ(thread__local.pointer(), &(thread__local.get()));
 }
 
 TEST(ThreadLocalTest, PointerAndConstPointerReturnSameValue) {
-  ThreadLocal<String> thread_local;
-  const ThreadLocal<String>& const_thread_local = thread_local;
+  ThreadLocal<String> thread__local;
+  const ThreadLocal<String>& const_thread__local = thread__local;
 
-  EXPECT_EQ(thread_local.pointer(), const_thread_local.pointer());
+  EXPECT_EQ(thread__local.pointer(), const_thread__local.pointer());
 
-  thread_local.set("foo");
-  EXPECT_EQ(thread_local.pointer(), const_thread_local.pointer());
+  thread__local.set("foo");
+  EXPECT_EQ(thread__local.pointer(), const_thread__local.pointer());
 }
 
 #if GTEST_IS_THREADSAFE
@@ -1088,14 +1088,14 @@ void RetrieveThreadLocalValue(pair<ThreadLocal<String>*, String*> param) {
 }
 
 TEST(ThreadLocalTest, ParameterizedConstructorSetsDefault) {
-  ThreadLocal<String> thread_local("foo");
-  EXPECT_STREQ("foo", thread_local.get().c_str());
+  ThreadLocal<String> thread__local("foo");
+  EXPECT_STREQ("foo", thread__local.get().c_str());
 
-  thread_local.set("bar");
-  EXPECT_STREQ("bar", thread_local.get().c_str());
+  thread__local.set("bar");
+  EXPECT_STREQ("bar", thread__local.get().c_str());
 
   String result;
-  RunFromThread(&RetrieveThreadLocalValue, make_pair(&thread_local, &result));
+  RunFromThread(&RetrieveThreadLocalValue, make_pair(&thread__local, &result));
   EXPECT_STREQ("foo", result.c_str());
 }
 
@@ -1124,8 +1124,8 @@ class DestructorTracker {
 
 typedef ThreadLocal<DestructorTracker>* ThreadParam;
 
-void CallThreadLocalGet(ThreadParam thread_local) {
-  thread_local->get();
+void CallThreadLocalGet(ThreadParam thread__local) {
+  thread__local->get();
 }
 
 // Tests that when a ThreadLocal object dies in a thread, it destroys
@@ -1135,19 +1135,19 @@ TEST(ThreadLocalTest, DestroysManagedObjectForOwnThreadWhenDying) {
 
   {
     // The next line default constructs a DestructorTracker object as
-    // the default value of objects managed by thread_local.
-    ThreadLocal<DestructorTracker> thread_local;
+    // the default value of objects managed by thread__local.
+    ThreadLocal<DestructorTracker> thread__local;
     ASSERT_EQ(1U, g_destroyed.size());
     ASSERT_FALSE(g_destroyed[0]);
 
     // This creates another DestructorTracker object for the main thread.
-    thread_local.get();
+    thread__local.get();
     ASSERT_EQ(2U, g_destroyed.size());
     ASSERT_FALSE(g_destroyed[0]);
     ASSERT_FALSE(g_destroyed[1]);
   }
 
-  // Now thread_local has died.  It should have destroyed both the
+  // Now thread__local has died.  It should have destroyed both the
   // default value shared by all threads and the value for the main
   // thread.
   ASSERT_EQ(2U, g_destroyed.size());
@@ -1164,14 +1164,14 @@ TEST(ThreadLocalTest, DestroysManagedObjectAtThreadExit) {
 
   {
     // The next line default constructs a DestructorTracker object as
-    // the default value of objects managed by thread_local.
-    ThreadLocal<DestructorTracker> thread_local;
+    // the default value of objects managed by thread__local.
+    ThreadLocal<DestructorTracker> thread__local;
     ASSERT_EQ(1U, g_destroyed.size());
     ASSERT_FALSE(g_destroyed[0]);
 
     // This creates another DestructorTracker object in the new thread.
     ThreadWithParam<ThreadParam> thread(
-        &CallThreadLocalGet, &thread_local, NULL);
+        &CallThreadLocalGet, &thread__local, NULL);
     thread.Join();
 
     // Now the new thread has exited.  The per-thread object for it
@@ -1181,7 +1181,7 @@ TEST(ThreadLocalTest, DestroysManagedObjectAtThreadExit) {
     ASSERT_TRUE(g_destroyed[1]);
   }
 
-  // Now thread_local has died.  The default value should have been
+  // Now thread__local has died.  The default value should have been
   // destroyed too.
   ASSERT_EQ(2U, g_destroyed.size());
   EXPECT_TRUE(g_destroyed[0]);
@@ -1191,12 +1191,12 @@ TEST(ThreadLocalTest, DestroysManagedObjectAtThreadExit) {
 }
 
 TEST(ThreadLocalTest, ThreadLocalMutationsAffectOnlyCurrentThread) {
-  ThreadLocal<String> thread_local;
-  thread_local.set("Foo");
-  EXPECT_STREQ("Foo", thread_local.get().c_str());
+  ThreadLocal<String> thread__local;
+  thread__local.set("Foo");
+  EXPECT_STREQ("Foo", thread__local.get().c_str());
 
   String result;
-  RunFromThread(&RetrieveThreadLocalValue, make_pair(&thread_local, &result));
+  RunFromThread(&RetrieveThreadLocalValue, make_pair(&thread__local, &result));
   EXPECT_TRUE(result.c_str() == NULL);
 }
 
