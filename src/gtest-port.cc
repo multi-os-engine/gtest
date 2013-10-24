@@ -507,16 +507,29 @@ class CapturedStream {
     filename_ = temp_file_path;
 // ANDROID
 #elif GTEST_OS_LINUX_ANDROID
-    // Get $EXTERNAL_STORAGE from the environment, since this can change
-    // for shell users (fallback is /data/nativetest, for emulator users).
-    ::std::string external_storage = "/data/nativetest";
+    // Get $EXTERNAL_STORAGE from the environment as the preferred location
+    // of our temporary file. Check that it exists and is writable before
+    // trying to use it.
+    ::std::string external_storage;
     char *sdcard_path = getenv("EXTERNAL_STORAGE");
-    if (sdcard_path != NULL) {
-      // Check that $EXTERNAL_STORAGE exists and is writable before trying to use it.
-      struct stat sb;
-      if (stat(sdcard_path, &sb) != -1) {
-        if ((sb.st_mode & S_IWUSR) != 0) {
-          external_storage = sdcard_path;
+    struct stat sb;
+    if (sdcard_path != NULL && stat(sdcard_path, &sb) == 0 &&
+        (sb.st_mode & S_IWUSR) != 0) {
+      external_storage = sdcard_path;
+    } else {
+      // Try to fallback if $EXTERNAL_STORAGE is not set or is unusable.
+      // The list of fallback directories in order of priority:
+      //   /data/nativetest
+      //   /data/local/tmp
+      //   /tmp
+      // Use /tmp when running a gtest on a host system.
+      external_storage = "/data/nativetest";
+      if (stat(external_storage.c_str(), &sb) < 0 ||
+          (sb.st_mode & S_IWUSR) == 0) {
+        external_storage = "/data/local/tmp";
+        if (stat(external_storage.c_str(), &sb) < 0 ||
+            (sb.st_mode & S_IWUSR) == 0) {
+          external_storage = "/tmp";
         }
       }
     }
