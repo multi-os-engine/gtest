@@ -28,9 +28,19 @@
 
 LOCAL_PATH := $(call my-dir)
 
-libgtest_target_includes := \
-    $(LOCAL_PATH)/.. \
-    $(LOCAL_PATH)/../include
+ifeq ($(TARGET_ARCH),aarch64)
+    $(info TODOAArch64: $(LOCAL_PATH)/Android.mk build against NDK once available)
+    libgtest_target_includes := \
+        bionic \
+        bionic/libstdc++/include \
+        external/stlport/stlport \
+        $(LOCAL_PATH)/.. \
+        $(LOCAL_PATH)/../include
+else
+    libgtest_target_includes := \
+        $(LOCAL_PATH)/.. \
+        $(LOCAL_PATH)/../include
+endif
 
 libgtest_host_includes := \
   $(LOCAL_PATH)/.. \
@@ -75,14 +85,21 @@ include $(BUILD_HOST_STATIC_LIBRARY)
 
 include $(CLEAR_VARS)
 
-ifeq ($(TARGET_ARCH), arm)
-   LOCAL_SDK_VERSION := 8
+ifeq ($(TARGET_ARCH),aarch64)
+    $(info TODOAArch64: $(LOCAL_PATH)/Android.mk build against NDK once available)
+    ifneq ($(BUILD_WITH_ASTL),true)
+        include external/stlport/libstlport.mk
+    endif
 else
-# NDK support of other archs (ie. x86 and mips) are only available after android-9
-   LOCAL_SDK_VERSION := 9
-endif
+    ifeq ($(TARGET_ARCH), arm)
+        LOCAL_SDK_VERSION := 8
+    else
+        # NDK support of other archs (ie. x86 and mips) are only available after android-9
+        LOCAL_SDK_VERSION := 9
+    endif
 
-LOCAL_NDK_STL_VARIANT := stlport_static
+    LOCAL_NDK_STL_VARIANT := stlport_static
+endif
 
 LOCAL_CPP_EXTENSION := .cc
 
@@ -99,14 +116,22 @@ include $(BUILD_STATIC_LIBRARY)
 
 include $(CLEAR_VARS)
 
-ifeq ($(TARGET_ARCH), arm)
-   LOCAL_SDK_VERSION := 8
+ifeq ($(TARGET_ARCH),aarch64)
+    $(info TODOAArch64: $(LOCAL_PATH)/Android.mk build against NDK once available)
+    ifneq ($(BUILD_WITH_ASTL),true)
+        include external/stlport/libstlport.mk
+    endif
 else
-# NDK support of other archs (ie. x86 and mips) are only available after android-9
-   LOCAL_SDK_VERSION := 9
+    ifeq ($(TARGET_ARCH), arm)
+        LOCAL_SDK_VERSION := 8
+    else
+        # NDK support of other archs (ie. x86 and mips) are only available after android-9
+        LOCAL_SDK_VERSION := 9
+    endif
+
+    LOCAL_NDK_STL_VARIANT := stlport_static
 endif
 
-LOCAL_NDK_STL_VARIANT := stlport_static
 
 LOCAL_CPP_EXTENSION := .cc
 
