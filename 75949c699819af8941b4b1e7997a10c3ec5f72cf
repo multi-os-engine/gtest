@@ -1,0 +1,7 @@
+Code-Review+2: Stephen Hines <srhines@google.com>
+Verified+1: Stephen Hines <srhines@google.com>
+Submitted-by: Dan Albert <danalbert@google.com>
+Submitted-at: Fri, 16 May 2014 23:50:31 +0000
+Reviewed-on: https://android-review.googlesource.com/94952
+Project: platform/external/gtest
+Branch: refs/heads/master
