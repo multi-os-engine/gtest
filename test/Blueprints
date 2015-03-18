@@ -1,0 +1,123 @@
+//
+// Copyright (C) 2009 The Android Open Source Project
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+
+common_local_include_dirs = ["../include", ".."]
+common_cflags = ["-Wno-empty-body"]
+
+cc_test {
+    name: "gtest-unittest-api_test",
+    srcs: ["gtest-unittest-api_test.cc"],
+    host_supported: true,
+    local_include_dirs: common_local_include_dirs,
+    cflags: common_cflags,
+}
+
+cc_test {
+    name: "gtest_stress_test",
+    srcs: ["gtest_stress_test.cc"],
+    host_supported: true,
+    local_include_dirs: common_local_include_dirs,
+    cflags: common_cflags,
+}
+
+cc_test {
+    name: "gtest_sole_header_test",
+    srcs: ["gtest_sole_header_test.cc"],
+    host_supported: true,
+    local_include_dirs: common_local_include_dirs,
+    cflags: common_cflags,
+}
+
+cc_test {
+    name: "gtest_repeat_test",
+    srcs: ["gtest_repeat_test.cc"],
+    host_supported: true,
+    local_include_dirs: common_local_include_dirs,
+    cflags: common_cflags,
+}
+
+cc_test {
+    name: "gtest_premature_exit_test",
+    srcs: ["gtest_premature_exit_test.cc"],
+    host_supported: true,
+    local_include_dirs: common_local_include_dirs,
+    cflags: common_cflags,
+}
+
+cc_test {
+    name: "gtest-param-test2_test",
+    srcs: ["gtest-param-test2_test.cc"],
+    host_supported: true,
+    local_include_dirs: common_local_include_dirs,
+    cflags: common_cflags,
+}
+
+cc_test {
+    name: "gtest_no_test_unittest",
+    srcs: ["gtest_no_test_unittest.cc"],
+    host_supported: true,
+    local_include_dirs: common_local_include_dirs,
+    cflags: common_cflags,
+}
+
+cc_test {
+    name: "gtest_main_unittest",
+    srcs: ["gtest_main_unittest.cc"],
+    host_supported: true,
+    local_include_dirs: common_local_include_dirs,
+    cflags: common_cflags,
+}
+
+cc_test {
+    name: "gtest-listener_test",
+    srcs: ["gtest-listener_test.cc"],
+    host_supported: true,
+    local_include_dirs: common_local_include_dirs,
+    cflags: common_cflags,
+}
+
+cc_test {
+    name: "gtest_environment_test",
+    srcs: ["gtest_environment_test.cc"],
+    host_supported: true,
+    local_include_dirs: common_local_include_dirs,
+    cflags: common_cflags,
+}
+
+cc_test {
+    name: "gtest-death-test_test",
+    srcs: ["gtest-death-test_test.cc"],
+    host_supported: true,
+    local_include_dirs: common_local_include_dirs,
+    cflags: common_cflags,
+}
+
+cc_test {
+    name: "gtest_all_test",
+    srcs: ["gtest_all_test.cc"],
+    host_supported: true,
+    local_include_dirs: common_local_include_dirs,
+    cflags: common_cflags,
+}
+
+// We don't have exceptions.
+//    gtest-death-test_ex_test.cc
+//    gtest_throw_on_failure_ex_test.cc
+// We don't have tr1::tuple.
+//    gtest-tuple_test.cc
+// These don't build.
+//    gtest-param-test_test.cc
+//    gtest-printers_test.cc
