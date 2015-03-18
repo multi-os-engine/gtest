@@ -42,10 +42,10 @@ libgtest_cflags = ["-Wno-missing-field-initializers"]
 // gtest lib for the NDK
 
 cc_library_static {
-    // ANDROIDMK TRANSLATION ERROR: unsupported assignment to LOCAL_SDK_VERSION
-    // LOCAL_SDK_VERSION:=9
-    // ANDROIDMK TRANSLATION ERROR: unsupported assignment to LOCAL_NDK_STL_VARIANT
-    // LOCAL_NDK_STL_VARIANT:=stlport_static
+
+    sdk_version: "9",
+    stl: "stlport_static",
+
     srcs: ["gtest-all.cc"],
     local_include_dirs: libgtest_target_includes,
     cppflags: ["-std=gnu++98"],
@@ -57,10 +57,10 @@ cc_library_static {
 // gtest_main for the NDK
 
 cc_library_static {
-    // ANDROIDMK TRANSLATION ERROR: unsupported assignment to LOCAL_SDK_VERSION
-    // LOCAL_SDK_VERSION:=9
-    // ANDROIDMK TRANSLATION ERROR: unsupported assignment to LOCAL_NDK_STL_VARIANT
-    // LOCAL_NDK_STL_VARIANT:=stlport_static
+
+    sdk_version: "9",
+    stl: "stlport_static",
+
     srcs: ["gtest_main.cc"],
     local_include_dirs: libgtest_target_includes,
     cppflags: ["-std=gnu++98"],
