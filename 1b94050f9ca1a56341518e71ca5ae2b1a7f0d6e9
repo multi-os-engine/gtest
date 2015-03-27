@@ -1,0 +1,7 @@
+Code-Review+2: Colin Cross <ccross@google.com>
+Verified+1: Dan Albert <danalbert@google.com>
+Submitted-by: Dan Albert <danalbert@google.com>
+Submitted-at: Fri, 27 Mar 2015 04:59:56 +0000
+Reviewed-on: https://android-review.googlesource.com/144076
+Project: platform/external/gtest
+Branch: refs/heads/master-soong
