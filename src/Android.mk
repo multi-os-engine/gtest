@@ -115,9 +115,6 @@ LOCAL_SANITIZE := never
 
 include $(BUILD_HOST_STATIC_LIBRARY)
 
-#######################################################################
-# Don't build for unbundled branches
-ifeq (,$(TARGET_BUILD_APPS))
 # gtest lib target
 
 include $(CLEAR_VARS)
@@ -131,6 +128,12 @@ LOCAL_EXPORT_C_INCLUDE_DIRS := $(libgtest_export_include_dirs)
 LOCAL_MODULE := libgtest
 LOCAL_SANITIZE := never
 LOCAL_RTTI_FLAG := -frtti
+
+# Fall back to NDK for unbundled branches
+ifneq (,$(TARGET_BUILD_APPS))
+LOCAL_SDK_VERSION := 9
+LOCAL_NDK_STL_VARIANT := stlport_static
+endif
 
 include $(BUILD_STATIC_LIBRARY)
 
@@ -148,5 +151,10 @@ LOCAL_EXPORT_C_INCLUDE_DIRS := $(libgtest_export_include_dirs)
 LOCAL_MODULE := libgtest_main
 LOCAL_SANITIZE := never
 
-include $(BUILD_STATIC_LIBRARY)
+# Fall back to NDK for unbundled branches
+ifneq (,$(TARGET_BUILD_APPS))
+LOCAL_SDK_VERSION := 9
+LOCAL_NDK_STL_VARIANT := stlport_static
 endif
+
+include $(BUILD_STATIC_LIBRARY)

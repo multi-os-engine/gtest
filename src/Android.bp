@@ -40,19 +40,19 @@ cc_defaults {
 }
 
 cc_defaults {
-    name: "libgtest_host_defaults",
-
+    name: "libgtest_platform_defaults",
     target: {
-        windows: {
-            enabled: true,
-        },
-        host: {
+        android: {
             product_variables: {
                 unbundled_build: {
-                    // Don't build for unbundled branches
-                    enabled: false,
+                    // Fall back to NDK for unbundled branches
+                    sdk_version: "9",
+                    stl: "stlport_static",
                 },
             },
+        },
+        windows: {
+            enabled: true,
         },
     },
 }
@@ -83,14 +83,12 @@ cc_library_static {
     srcs: ["gtest_main.cc"],
 }
 
-
-
 //######################################################################
 // gtest lib
 
 cc_library_static {
     name: "libgtest",
-    defaults: ["libgtest_defaults", "libgtest_host_defaults"],
+    defaults: ["libgtest_defaults", "libgtest_platform_defaults"],
 
     host_supported: true,
     clang: true,
@@ -106,7 +104,7 @@ cc_library_static {
 
 cc_library_static {
     name: "libgtest_main",
-    defaults: ["libgtest_defaults", "libgtest_host_defaults"],
+    defaults: ["libgtest_defaults", "libgtest_platform_defaults"],
 
     host_supported: true,
     clang: true,
@@ -121,11 +119,11 @@ cc_library_static {
 cc_library_host_static {
     name: "libgtest_host",
     whole_static_libs: ["libgtest"],
-    defaults: ["libgtest_host_defaults"],
+    defaults: ["libgtest_platform_defaults"],
 }
 
 cc_library_host_static {
     name: "libgtest_main_host",
     whole_static_libs: ["libgtest_main"],
-    defaults: ["libgtest_host_defaults"],
+    defaults: ["libgtest_platform_defaults"],
 }
