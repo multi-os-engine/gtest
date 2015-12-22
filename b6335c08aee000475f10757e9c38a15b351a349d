@@ -1,0 +1,7 @@
+Code-Review+2: Colin Cross <ccross@android.com>
+Verified+1: Dan Willemsen <dwillemsen@google.com>
+Submitted-by: Dan Willemsen <dwillemsen@google.com>
+Submitted-at: Tue, 22 Dec 2015 00:12:13 +0000
+Reviewed-on: https://android-review.googlesource.com/188980
+Project: platform/external/gtest
+Branch: refs/heads/master
