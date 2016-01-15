@@ -1,0 +1,7 @@
+Code-Review+2: Elliott Hughes <enh@google.com>
+Verified+1: Colin Cross <ccross@android.com>
+Submitted-by: Colin Cross <ccross@android.com>
+Submitted-at: Fri, 15 Jan 2016 21:53:44 +0000
+Reviewed-on: https://android-review.googlesource.com/196683
+Project: platform/external/gtest
+Branch: refs/heads/master
