@@ -1107,12 +1107,12 @@ class NativeArray {
 // represenation of expression as it was passed into the EXPECT_TRUE.
 #define GTEST_TEST_BOOLEAN_(expression, text, actual, expected, fail) \
   GTEST_AMBIGUOUS_ELSE_BLOCKER_ \
-  if (const ::testing::AssertionResult gtest_ar_ = \
-      ::testing::AssertionResult(expression)) \
+  if (auto gtest_tmp_ = expression) \
     ; \
   else \
     fail(::testing::internal::GetBoolAssertionFailureMessage(\
-        gtest_ar_, text, #actual, #expected).c_str())
+        ::testing::AssertionResult(gtest_tmp_), \
+        text, #actual, #expected).c_str())
 
 #define GTEST_TEST_NO_FATAL_FAILURE_(statement, fail) \
   GTEST_AMBIGUOUS_ELSE_BLOCKER_ \
