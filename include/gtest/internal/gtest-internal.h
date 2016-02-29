@@ -1105,14 +1105,18 @@ class NativeArray {
 // Implements Boolean test assertions such as EXPECT_TRUE. expression can be
 // either a boolean expression or an AssertionResult. text is a textual
 // represenation of expression as it was passed into the EXPECT_TRUE.
+// Although AssertionResult can be used in the if-condition and converted
+// to bool value, clang static analyzer has trouble following through
+// the boolean 'expression' to AssertionResult. Here gtest_tmp_ will be
+// a simple bool value if 'expression' is a bool type.
 #define GTEST_TEST_BOOLEAN_(expression, text, actual, expected, fail) \
   GTEST_AMBIGUOUS_ELSE_BLOCKER_ \
-  if (const ::testing::AssertionResult gtest_ar_ = \
-      ::testing::AssertionResult(expression)) \
+  if (auto gtest_tmp_ = ::testing::AssertionResult::BoolOrObject(expression)) \
     ; \
   else \
     fail(::testing::internal::GetBoolAssertionFailureMessage(\
-        gtest_ar_, text, #actual, #expected).c_str())
+        ::testing::AssertionResult(gtest_tmp_), \
+        text, #actual, #expected).c_str())
 
 #define GTEST_TEST_NO_FATAL_FAILURE_(statement, fail) \
   GTEST_AMBIGUOUS_ELSE_BLOCKER_ \

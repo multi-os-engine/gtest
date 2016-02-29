@@ -54,7 +54,7 @@ LOCAL_NDK_STL_VARIANT := stlport_static
 LOCAL_CPP_EXTENSION := .cc
 LOCAL_SRC_FILES := gtest-all.cc
 LOCAL_C_INCLUDES := $(libgtest_target_includes)
-LOCAL_CPPFLAGS := -std=gnu++98
+LOCAL_CPPFLAGS := -std=gnu++11
 LOCAL_CFLAGS += $(libgtest_cflags)
 LOCAL_EXPORT_C_INCLUDE_DIRS := $(libgtest_export_include_dirs)
 LOCAL_MODULE := libgtest_ndk
@@ -73,7 +73,7 @@ LOCAL_NDK_STL_VARIANT := stlport_static
 LOCAL_CPP_EXTENSION := .cc
 LOCAL_SRC_FILES := gtest_main.cc
 LOCAL_C_INCLUDES := $(libgtest_target_includes)
-LOCAL_CPPFLAGS := -std=gnu++98
+LOCAL_CPPFLAGS := -std=gnu++11
 LOCAL_CFLAGS += $(libgtest_cflags)
 LOCAL_EXPORT_C_INCLUDE_DIRS := $(libgtest_export_include_dirs)
 LOCAL_MODULE := libgtest_main_ndk

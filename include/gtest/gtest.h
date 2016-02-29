@@ -292,6 +292,17 @@ class GTEST_API_ AssertionResult {
     return *this;
   }
 
+  // Overloaded BoolOrObject returns a bool for a bool and
+  // an AssertionResult for AssertionResult or any type that
+  // can be converted to bool.
+  static bool BoolOrObject(bool value) {
+    return value;
+  }
+  // Returns an AssertionResult for any type acceted by the constructor.
+  template <typename T> static AssertionResult BoolOrObject(const T& value) {
+    return AssertionResult(value);
+  }
+
  private:
   // Appends the contents of message to message_.
   void AppendMessage(const Message& a_message) {
