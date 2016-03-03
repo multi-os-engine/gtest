@@ -4647,6 +4647,7 @@ class ClassUniqueToAlwaysTrue {};
 
 bool IsTrue(bool condition) { return condition; }
 
+#ifndef __clang_analyzer__
 bool AlwaysTrue() {
 #if GTEST_HAS_EXCEPTIONS
   // This condition is always false so AlwaysTrue() never actually throws,
@@ -4656,6 +4657,7 @@ bool AlwaysTrue() {
 #endif  // GTEST_HAS_EXCEPTIONS
   return true;
 }
+#endif
 
 // If *pstr starts with the given prefix, modifies *pstr to be right
 // past the prefix and returns true; otherwise leaves *pstr unchanged

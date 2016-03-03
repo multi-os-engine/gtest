@@ -653,11 +653,18 @@ GTEST_API_ std::string GetCurrentOsStackTraceExceptTop(
 // Helpers for suppressing warnings on unreachable code or constant
 // condition.
 
+#ifndef __clang_analyzer__
 // Always returns true.
 GTEST_API_ bool AlwaysTrue();
 
 // Always returns false.
 inline bool AlwaysFalse() { return !AlwaysTrue(); }
+
+#else
+// Constant values should be inlined to help flow analysis.
+inline bool AlwaysTrue() { return true; }
+inline bool AlwaysFalse() { return false; }
+#endif
 
 // Helper for suppressing false warning from Clang on a const char*
 // variable declared in a conditional expression always being NULL in
