@@ -81,6 +81,82 @@ LOCAL_MODULE := libgtest_main_ndk
 include $(BUILD_STATIC_LIBRARY)
 
 #######################################################################
+# gtest lib for the NDK, with libc++
+
+include $(CLEAR_VARS)
+LOCAL_ADDITIONAL_DEPENDENCIES := $(LOCAL_PATH)/Android.mk
+
+LOCAL_SDK_VERSION := 9
+LOCAL_NDK_STL_VARIANT := c++_static
+
+LOCAL_CPP_EXTENSION := .cc
+LOCAL_SRC_FILES := gtest-all.cc
+LOCAL_C_INCLUDES := $(libgtest_target_includes)
+LOCAL_CPPFLAGS := -std=gnu++98
+LOCAL_CFLAGS += $(libgtest_cflags)
+LOCAL_EXPORT_C_INCLUDE_DIRS := $(libgtest_export_include_dirs)
+LOCAL_MODULE := libgtest_ndk_libcxx
+
+include $(BUILD_STATIC_LIBRARY)
+
+#######################################################################
+# gtest_main for the NDK, with libc++
+
+include $(CLEAR_VARS)
+LOCAL_ADDITIONAL_DEPENDENCIES := $(LOCAL_PATH)/Android.mk
+
+LOCAL_SDK_VERSION := 9
+LOCAL_NDK_STL_VARIANT := c++_static
+
+LOCAL_CPP_EXTENSION := .cc
+LOCAL_SRC_FILES := gtest_main.cc
+LOCAL_C_INCLUDES := $(libgtest_target_includes)
+LOCAL_CPPFLAGS := -std=gnu++98
+LOCAL_CFLAGS += $(libgtest_cflags)
+LOCAL_EXPORT_C_INCLUDE_DIRS := $(libgtest_export_include_dirs)
+LOCAL_MODULE := libgtest_main_ndk_libcxx
+
+include $(BUILD_STATIC_LIBRARY)
+
+#######################################################################
+# gtest lib for the NDK, with gnustl
+
+include $(CLEAR_VARS)
+LOCAL_ADDITIONAL_DEPENDENCIES := $(LOCAL_PATH)/Android.mk
+
+LOCAL_SDK_VERSION := 9
+LOCAL_NDK_STL_VARIANT := gnustl_static
+
+LOCAL_CPP_EXTENSION := .cc
+LOCAL_SRC_FILES := gtest-all.cc
+LOCAL_C_INCLUDES := $(libgtest_target_includes)
+LOCAL_CPPFLAGS := -std=gnu++98
+LOCAL_CFLAGS += $(libgtest_cflags)
+LOCAL_EXPORT_C_INCLUDE_DIRS := $(libgtest_export_include_dirs)
+LOCAL_MODULE := libgtest_ndk_gnustl
+
+include $(BUILD_STATIC_LIBRARY)
+
+#######################################################################
+# gtest_main for the NDK, with gnustl
+
+include $(CLEAR_VARS)
+LOCAL_ADDITIONAL_DEPENDENCIES := $(LOCAL_PATH)/Android.mk
+
+LOCAL_SDK_VERSION := 9
+LOCAL_NDK_STL_VARIANT := gnustl_static
+
+LOCAL_CPP_EXTENSION := .cc
+LOCAL_SRC_FILES := gtest_main.cc
+LOCAL_C_INCLUDES := $(libgtest_target_includes)
+LOCAL_CPPFLAGS := -std=gnu++98
+LOCAL_CFLAGS += $(libgtest_cflags)
+LOCAL_EXPORT_C_INCLUDE_DIRS := $(libgtest_export_include_dirs)
+LOCAL_MODULE := libgtest_main_ndk_gnustl
+
+include $(BUILD_STATIC_LIBRARY)
+
+#######################################################################
 # gtest lib host
 
 include $(CLEAR_VARS)
