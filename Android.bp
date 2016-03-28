@@ -84,7 +84,56 @@ cc_library_static {
     srcs: ["src/gtest_main.cc"],
 }
 
+//#######################################################################
+// gtest lib for the NDK, with libc++
 
+cc_library_static {
+    name: "libgtest_ndk_libcxx",
+    defaults: ["libgtest_defaults"],
+
+    sdk_version: "9",
+    stl: "c++_static",
+
+    srcs: ["src/gtest-all.cc"],
+}
+
+//#######################################################################
+// gtest_main for the NDK, with libc++
+
+cc_library_static {
+    name: "libgtest_main_ndk_libcxx",
+    defaults: ["libgtest_defaults"],
+
+    sdk_version: "9",
+    stl: "c++_static",
+
+    srcs: ["src/gtest_main.cc"],
+}
+
+//#######################################################################
+// gtest lib for the NDK, with gnustl
+
+cc_library_static {
+    name: "libgtest_ndk_gnustl",
+    defaults: ["libgtest_defaults"],
+
+    sdk_version: "9",
+    stl: "gnustl_static",
+
+    srcs: ["src/gtest-all.cc"],
+}
+
+//#######################################################################
+// gtest_main for the NDK, with gnustl
+cc_library_static {
+    name: "libgtest_main_ndk_gnustl",
+    defaults: ["libgtest_defaults"],
+
+    sdk_version: "9",
+    stl: "gnustl_static",
+
+    srcs: ["src/gtest_main.cc"],
+}
 
 //######################################################################
 // gtest lib
