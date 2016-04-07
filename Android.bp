@@ -147,7 +147,9 @@ cc_library_static {
 
     srcs: ["src/gtest-all.cc"],
 
-    sanitize: ["never"],
+    sanitize: {
+        never: true,
+    },
     rtti: true,
 }
 
@@ -163,7 +165,9 @@ cc_library_static {
 
     srcs: ["src/gtest_main.cc"],
 
-    sanitize: ["never"],
+    sanitize: {
+        never: true,
+    },
 }
 
 // Legacy libraries for makefiles that refer to libgtest_host
