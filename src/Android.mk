@@ -239,4 +239,5 @@ include $(BUILD_STATIC_LIBRARY)
 include $(CLEAR_VARS)
 LOCAL_MODULE := libgtest_prod
 LOCAL_EXPORT_C_INCLUDE_DIRS := $(libgtest_export_include_dirs)
+LOCAL_MODULE_HOST_OS := darwin linux windows
 include $(BUILD_HOST_STATIC_LIBRARY)
