@@ -229,3 +229,14 @@ cc_test {
     ],
 }
 
+cc_library_static {
+    name: "libgtest_prod",
+    host_supported: true,
+    srcs: [],
+    export_include_dirs: ["include"],
+    target: {
+        windows: {
+            enabled: true,
+        },
+    },
+}
