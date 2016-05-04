@@ -36,16 +36,6 @@ cc_defaults {
     ],
     cflags: ["-Wno-missing-field-initializers"],
     cppflags: ["-std=gnu++98"],
-    target: {
-        android: {
-            product_variables: {
-                unbundled_build: {
-                    // Don't build for unbundled branches
-                    enabled: false,
-                },
-            },
-        },
-    },
 }
 
 cc_defaults {
@@ -193,16 +183,6 @@ cc_test {
     cflags: ["-Wno-empty-body"],
     local_include_dirs: ["include"],
     host_supported: true,
-    target: {
-        android: {
-            product_variables: {
-                unbundled_build: {
-                    // Don't build for unbundled branches
-                    enabled: false,
-                },
-            },
-        },
-    },
     test_per_src: true,
     srcs: [
         "test/gtest_all_test.cc",
