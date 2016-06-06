@@ -1376,10 +1376,10 @@ internal::CartesianProductHolder10<Generator1, Generator2, Generator3,
 # endif  // GTEST_HAS_COMBINE
 
 
-
+// Use NOLINT, or clang-tidy adds wrong parentheses around test_case_name.
 # define TEST_P(test_case_name, test_name) \
   class GTEST_TEST_CLASS_NAME_(test_case_name, test_name) \
-      : public test_case_name { \
+      : public test_case_name {  /* NOLINT */ \
    public: \
     GTEST_TEST_CLASS_NAME_(test_case_name, test_name)() {} \
     virtual void TestBody(); \
