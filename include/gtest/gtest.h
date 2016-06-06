@@ -1384,11 +1384,12 @@ class FormatForComparison<ToPrint[N], OtherOperand> {
 // By default, print C string as pointers to be safe, as we don't know
 // whether they actually point to a NUL-terminated string.
 
+// Use NOLINT, or clang-tidy adds wrong parentheses around CharType.
 #define GTEST_IMPL_FORMAT_C_STRING_AS_POINTER_(CharType)                \
   template <typename OtherOperand>                                      \
-  class FormatForComparison<CharType*, OtherOperand> {                  \
+  class FormatForComparison<CharType*, OtherOperand> {  /* NOLINT */    \
    public:                                                              \
-    static ::std::string Format(CharType* value) {                      \
+    static ::std::string Format(CharType* value) {  /* NOLINT */        \
       return ::testing::PrintToString(static_cast<const void*>(value)); \
     }                                                                   \
   }
@@ -1403,11 +1404,12 @@ GTEST_IMPL_FORMAT_C_STRING_AS_POINTER_(const wchar_t);
 // If a C string is compared with an STL string object, we know it's meant
 // to point to a NUL-terminated string, and thus can print it as a string.
 
+// Use NOLINT, or clang-tidy adds wrong parentheses around CharType.
 #define GTEST_IMPL_FORMAT_C_STRING_AS_STRING_(CharType, OtherStringType) \
   template <>                                                           \
-  class FormatForComparison<CharType*, OtherStringType> {               \
+  class FormatForComparison<CharType*, OtherStringType> {  /* NOLINT */ \
    public:                                                              \
-    static ::std::string Format(CharType* value) {                      \
+    static ::std::string Format(CharType* value) {  /* NOLINT */        \
       return ::testing::PrintToString(value);                           \
     }                                                                   \
   }
