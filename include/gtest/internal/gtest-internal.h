@@ -663,7 +663,7 @@ inline bool AlwaysFalse() { return !AlwaysTrue(); }
 // variable declared in a conditional expression always being NULL in
 // the else branch.
 struct GTEST_API_ ConstCharPtr {
-  ConstCharPtr(const char* str) : value(str) {}
+  ConstCharPtr(const char* str) : value(str) {}  // NOLINT, implicit
   operator bool() const { return true; }
   const char* value;
 };
@@ -1133,8 +1133,10 @@ class NativeArray {
   test_case_name##_##test_name##_Test
 
 // Helper macro for defining tests.
+// Use NOLINT, or clang-tidy adds wrong parentheses around parent_class.
 #define GTEST_TEST_(test_case_name, test_name, parent_class, parent_id)\
-class GTEST_TEST_CLASS_NAME_(test_case_name, test_name) : public parent_class {\
+class GTEST_TEST_CLASS_NAME_(test_case_name, test_name) \
+      : public parent_class { /* NOLINT */ \
  public:\
   GTEST_TEST_CLASS_NAME_(test_case_name, test_name)() {}\
  private:\

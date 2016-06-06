@@ -166,12 +166,13 @@ INSTANTIATE_TYPED_TEST_CASE_P(My, FooTest, MyTypes);
   typedef ::testing::internal::TypeList< Types >::type \
       GTEST_TYPE_PARAMS_(CaseName)
 
+// Use NOLINT, or clang-tidy adds wrong parentheses around CaseName.
 # define TYPED_TEST(CaseName, TestName) \
   template <typename gtest_TypeParam_> \
   class GTEST_TEST_CLASS_NAME_(CaseName, TestName) \
-      : public CaseName<gtest_TypeParam_> { \
+      : public CaseName<gtest_TypeParam_> {  /* NOLINT */ \
    private: \
-    typedef CaseName<gtest_TypeParam_> TestFixture; \
+    typedef CaseName<gtest_TypeParam_> TestFixture;  /* NOLINT */ \
     typedef gtest_TypeParam_ TypeParam; \
     virtual void TestBody(); \
   }; \
@@ -220,12 +221,13 @@ INSTANTIATE_TYPED_TEST_CASE_P(My, FooTest, MyTypes);
   static ::testing::internal::TypedTestCasePState \
       GTEST_TYPED_TEST_CASE_P_STATE_(CaseName)
 
+// Use NOLINT, or clang-tidy adds wrong parentheses around CaseName.
 # define TYPED_TEST_P(CaseName, TestName) \
   namespace GTEST_CASE_NAMESPACE_(CaseName) { \
   template <typename gtest_TypeParam_> \
-  class TestName : public CaseName<gtest_TypeParam_> { \
+  class TestName : public CaseName<gtest_TypeParam_>  { /* NOLINT */ \
    private: \
-    typedef CaseName<gtest_TypeParam_> TestFixture; \
+    typedef CaseName<gtest_TypeParam_> TestFixture;  /* NOLINT */ \
     typedef gtest_TypeParam_ TypeParam; \
     virtual void TestBody(); \
   }; \
